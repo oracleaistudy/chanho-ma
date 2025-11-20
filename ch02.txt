@@ -1,0 +1,92 @@
+1. 알고리즘
+1) 지도 학습: 정답을 맞히는 것을 학습
+		  훈련 데이터(training data) = 입력(input, 데이터) + 타깃(target, 정답)
+			* 특성(feature): 입력에 사용된 값의 구분 기준
+				*스케일(scale): 두 특성의 값이 놓인 범위
+			* 샘플(sample): 객체 하나의 데이터
+	(1) k-최근접 이웃 알고리즘
+
+2) 비지도 학습: 입력 데이터만 사용
+		     *타깃이 없으므로 정답을 맞출 수 없음
+			>> 데이터를 파악하거나 변형하는데 사용
+
+3) 강화학습(reinforcement learning): 알고리즘이 행동한 결과가 타깃을 대체하여 학습
+
+
+2. 알고리즘 성능 평가
+1) 테스트 세트: 평가에 사용하는 데이터
+	(1) 또 다른 데이터를 준비
+	(2) 이미 준비된 데이터 중 일부를 떼어 활용
+		*샘플링 편향(samplig bias): 훈련 세트와 테스트 세트 중
+							특정 특성이 한 쪽으로 치우쳐진 상황
+    훈련 세트: 훈련에 사용하는 데이터
+
+
+3. 넘파이(numpy): 고차원 배열을 다루는 배열 라이브러리
+1) array(): 파이썬의 리스트를 넘파이 배열로 변환
+	변수 = np.array(파이썬 리스트)
+
+2) shape: 넘파이 배열의 크기를 알려주는 속성
+	넘파이 배열.shape
+		>> (샘플 수, 특성 수)
+
+3) arange(): 규칙적인 숫자열로 배치
+	변수 = np.arange(시작, 끝다음, 간격)
+
+4) shuffle(): 배열을 무작위로 섞는 함수
+	np.random.shuffle(배열)
+		*shuffle()은 random 패키지 하위에 존재
+
+5) seed(): 난수를 생성하기 위한 정수 초깃값을 지정
+	    초깃값이 같으면 동일한 난수를 뽑음
+		>> 랜덤 함수의 결과를 재현하고 싶을 때 사용
+	np.random.seed(초깃값)
+		*seed()는 random 패키지 하위에 존재
+
+6) ones(): 모든 원소가 1인 배열을 생성
+	np.ones(x축, y축)
+
+7) zeros(): 모든 원소가 0인 배열을 생성
+	np.zeros(x축, y축)
+
+8) column_stack(): 1차원 배열들을 열 단위로 2D 배열을 생성
+	np.column_stack([1열 배열], [2열 배열]... )
+
+9) concatenate(): 여러 배열을 특정 축(axis)을 기준으로 연결
+	변수 = np.concatenate([[배열], [배열]... ], axis=0(행) / 1(열))
+
+10) mean(): 평균을 계산(배열 연산이 가능)
+	변수 = np.mean(배열)
+	변수 = np.mean(배열, axis=0(열) / 1(행))	
+
+11) std(): 표준편차를 계산
+	변수 = np.array(배열)
+	>> 브로드캐스팅(broadcasting):
+		하나 이상의 넘파이 배열에서 자동으로 사칙연산을 전체로 확장하여 수행
+
+
+4. 사이킷런(sklearn)
+1) train_test_split(): 전달되는 리스트나 배열을 비율에 맞게
+				훈련 세트와 테스트 세트로 섞은 후 나누어 줌
+			비율을 지정하지 않으면 25%를 테스트 세트로 분류
+	from sklearn.model_selection import train_test_split
+	train_test_split(입력, 타겟, stratify=타겟 데이터, random_state=난수)
+		* train_test_split()은 model_selection 모듈 하위에 존재
+		* stratify는 샘플링 편향을 배제하기 위해
+				샘플의 비율을 일정하게 지정하는 매개변수
+2) KNeighborsClassifier
+ (1) fit(): 이전에 학습한 내용을 지우는 함수
+	kn.fit(훈련 입력, 훈련 타겟)
+
+ (2) predict(): 예측한 결과를 조회
+	kn.predict(테스트 입력)
+
+ (3) kneighbors(): 이웃까지의 거리와 이웃 샘플의 인덱스를 반환
+	거리변수, 인덱스변수 = kn.kenighbors([[특성1, 특성2...]])
+
+
+5. 데이터 전처리(data preprocessing): 특성값을 일정한 기준으로 맞추는 과정
+1) 표준점수(standard score, z 점수):
+	각 특성값이 평균에서 표준편차의 몇 배만큼 떨어져 있는지
+		>> (값 - 특성평균) / 표준편차
+		>> 표준화(standardization): 데이터를 표준점수로 변환하는 과정
