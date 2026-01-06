@@ -1,0 +1,105 @@
+0. 인공 신경망(artificial intelligence)
+1) 단층 퍼셉트론(single-layer perceptron):
+	입력값과 가중치의 선형 결합으로 출력을 생성(입력층, 출력층만으로 구성)
+	단순 이진 분류 문제만 가능(이산 출력 모델)
+	* 퍼셉트론: 노드로 뉴런을 모방한 구조
+			입력층, 은닉층, 출력층으로 구성
+	* 노드: 수학적으로 뉴런을 모방한 구조
+
+2) 아달라인(ADALINE, adaptive linear neuron):
+	항등함수(identity function)를 사용한 연속적인 실수의 출력값(연속 출력 모델)
+
+3) 볼츠만 머신(boltzmann machine):
+	에너지 기반 모델(Energy-Based Model, EBM)로 모든 이진상태(0, 1) 뉴런(visible unit, hidden unit)이 대칭적 연결 가능하며 많은 연결로 복잡하고 무거움
+	>> 제한된 볼츠만 머신(RBM, restricted boltzmann machine):
+		가시 유닛 / 은닉 유닛 간 연결 불가
+
+4) 딥러닝(DNN, deep learng): 3개 이상의 layer
+ (1) 다층 퍼셉트론(MLP, multi layer perceptron):
+	입력층, 은닉층, 출력층으로 구성된 퍼셉트론
+ (2) 합성곱 신경망(CNN, convolutional nueral network):
+	합성곱 필터(convoltion kernal)를 사용하여 특징맵의 중요한 부분만 부곽
+	1} 1D CNN: 시계열, 자연어를 1차원 이미지처럼 처리
+======================================
+^피드포워드 신경망(FFNN, feedforward neural network)^
+	입력 데이터의 흐름이 앞으로만 전달되는 신경망
+	하나의 샘플이 정방향 계산을 수행하고 재사용되지 않음
+======================================
+ (3) 순환 신경망(RNN, recurrent neural network):
+	출력이 다시 입력으로 feedback되는 구조(hidden layer은 메모리 역할 수행)
+	각 layer의 parameter를 공유
+	1} Bi-directional RNN: 과거 & 미래 상태도 반영
+	2} elman NN: context layer가 추가되어 기록되야하는 부분을 저장
+		>> vanishing gradient problem(시간이 지날수록 잊혀짐) 일부 해결
+	3} 장단기 기억 신경망(LSTM, long short term memory):
+		각 layer에 gate cell을 붙여 값을 조절
+		input gate: 입력되는 새로운 정보를 저장할지 결정
+		forget gate: 이전 상태 정보를 저장할지 결정
+		output gate: 갱신된 cell의 출력값을 제어
+	4} GRU(gated recurrent unit): LSTM 개선, 장기기억 증강 & 연산 감소
+ (4) 트랜스포머(transformer):
+	장거리 의존성 문제(길수록 초반 정보가 소실됨) 해결
+	>> attention mechanism: 필요한 입력에만 집중
+ (5) 복층 자기부호화기(stacked autoencoder):
+	높은 차원의 복잡한 데이터에 대해 낮은 차원으로 축소
+ (6) 생성형 인공지능(Generative AI): 트랜스포머 기반 인공신경망
+	1} 심층 신뢰망(deep belief network)
+	2} 변분 자기부호화기(variational autoencoder):
+		데이터의 숨겨진 특징을 학습하고 새로운 데이터를 생성
+	3} 자기회귀모델(AR, Autoregressive Model): 
+		이전까지 생성된 데이터를 다음 입력으로 사용해 순차적인 데이터(sequence data) 생성
+	4} 생성적 적대 신경망(GAN, Generative Adversarial Network):
+		가상의 데이터를 생성하는 네트워크(G, generator, 생성자)가 더 실제같은 데이터를 생성할 수 있도록 진위 여부를 판별할 수 있는 네트워크(D, discriminator, 구별자)를 붙여 경쟁적 학습 생성 모델
+	5} 확산 모델(diffusion model):
+		비지도학습 방식으로 데이터 분포를 학습하며 새로운 데이터 생성에 사용
+		확산과정(forward process): 데이터에 점진적 노이즈 추가
+		역확산과정(reverse process): 노이즈로부터 원본 데이터를 복원
+
+
+1. 순차 데이터와 순환 신경망
+1) 순차 데이터(sequential data): 텍스트나 시계열 데이터와 같이 순서에 의미가 있는 데이터
+	* 시계열 데이터(time series data): 일정한 시간 간격으로 기록된 데이터
+
+2) 순환 신경망(RNN): 완전 연결 신경망에서 출력이 다시 입력으로 feedback되는 구조
+	* 타임스텝(timestep): feedback 이후 처리되는 한 단계
+	* 셀(cell): 순환 신경망의 layer
+	* 은닉 상태(hidden state): 셀에서의 모든 출력
+ (1) 하이퍼볼릭 탄젠트 함수(tanh, hyperbolic tangent):
+	은닉층의 활성화 함수로 주로 사용
+	-1 ~ 1 범위를 가짐
+
+
+2. 순환 신경망으로 IMDB 리뷰 분류하기
+1) 원-핫 인코딩
+
+2) 단어 임베딩(word embedding):
+	각 단어를 고정된 크기의 실수 벡터로 변환
+	one-hot encoding이 필요없어 메모리 절약
+
+3) 자연어 처리(NLP, natural language processing):
+	컴퓨터로 인간의 언어를 처리하는 분야
+	* 말뭉치(corpus): 자연어 처리 분야의 훈련 데이터
+ (1) 토큰(token): 각 단어별 분리 & 소문자로 변환 후 객체
+	* 한글은 형태소 단위로 분석
+
+
+3. LSTM과 GRU 셀
+1) simpleRNN은 멀리 떨어진 데이터가 점차 희석되는 단점이 존재
+	>> LSTM & GRU 개발
+2) LSTM(long short-term memory): 단기 기억을 오래 기억하기 위한 모델
+ (1) 셀 상태(cell state): 은닉상태와 다르게 다음 층으로 전달되지 않고 현재 셀에서만 순환
+			      모든 정보의 추가/제거는 시그모이드에 의해 판단
+- 입력 게이트(input gate): 새로운 정보를 셀상태에 추가
+	입력 > + 이전 은닉상태 > 가중치 > tanh 함수 / 시그모이드 함수 > 새로운 정보
+- 삭제 게이트(forget gate): 셀상태의 정보 제거
+	이전 셀상태 > + 새로운 정보 > 시그모이드 함수 > 현 셀상태
+- 출력 게이트(output gate): 셀상태를 다음 은닉 상태로 출력
+	현 셀상태 > tanh 함수 & 시그모이드 함수 > 새로운 은닉상태
+
+3) GRU(gated recurrent unit): 
+- 업데이트 게이트(update gate): input gate + forget gate
+	이전 셀상태 > + 입력, 이전 은닉상태 > 가중치 > 시그모이드 함수
+								     > tanh 함수
+										 > 새로운 은닉상태
+- 리셋 게이트(reset gate): 이전 정보에서 얼만큼 유지할지
+	이전 은닉상태 > + 입력 > 시그모이드 함수 > 사용할 정보
